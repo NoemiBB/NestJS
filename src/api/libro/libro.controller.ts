@@ -47,11 +47,11 @@ export class LibroController {
         // nuevo.titulo = libro.titulo;
         // nuevo.autor = libro.autor;
         // nuevo.fecha = libro.fecha;
-        
+        // return libros;
+
         // Usando el servicio
         this.restService.addLibro(libro);
-
-        // return libros;
+        
     }
  
     // (3) /:id get obtener un libro devuelve un libro
