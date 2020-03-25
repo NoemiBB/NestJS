@@ -1,46 +1,57 @@
 import { Controller, Get, Post, Put, Delete, Param, Body} from '@nestjs/common';
 import { Libro } from '../../libro';
 import { identity } from 'rxjs';
+import { RestService } from '../rest/rest.service';
 
 @Controller('libro')
 export class LibroController {
-    // (1) Get: listado de libros, devuelve un array de libro
+    constructor( private restService: RestService){
 
+    }
+
+    // (1) Get: listado de libros, devuelve un array de libro
     @Get()
     findAll() {
-        const libro = new Libro();
-        const libros = [];
+         const libro = new Libro();
+         let libros = [];
         // Creamos varios libros
-        libro.id = 1;
-        libro.titulo = 'Libro 1';
-        libro.autor = 'Autor 1';
-        libro.fecha = new Date(); 
-        libros.push(libro);
+        // libro.id = 1;
+        // libro.titulo = 'Libro 1';
+        // libro.autor = 'Autor 1';
+        // libro.fecha = new Date(); 
+        // libros.push(libro);
 
-        libro.id = 11;
-        libro.titulo = 'Libro 11';
-        libro.autor = 'Autor 11';
-        libro.fecha = new Date(); 
-        libros.push(libro);
+        // libro.id = 11;
+        // libro.titulo = 'Libro 11';
+        // libro.autor = 'Autor 11';
+        // libro.fecha = new Date(); 
+        // libros.push(libro);
 
-        libro.id = 12;
-        libro.titulo = 'Libro 12';
-        libro.autor = 'Autor 12';
-        libro.fecha = new Date(); 
-        libros.push(libro);
+        // libro.id = 12;
+        // libro.titulo = 'Libro 12';
+        // libro.autor = 'Autor 12';
+        // libro.fecha = new Date(); 
+        // libros.push(libro);
+
+        // Usando el servicio
+        libros = this.restService.getLibros();
+        
         return libros;
     }
 
     // (2) Post: añadir un libro devuelve un libro
     @Post()
-    addOne(@Body() libro: Libro): Libro {
-        const nuevo = new Libro();
-        nuevo.id = libro.id;
-        nuevo.titulo = libro.titulo;
-        nuevo.autor = libro.autor;
-        nuevo.fecha = libro.fecha;
+    addOne(@Body() libro: Libro) {
+        // const nuevo = new Libro();
+        // nuevo.id = libro.id;
+        // nuevo.titulo = libro.titulo;
+        // nuevo.autor = libro.autor;
+        // nuevo.fecha = libro.fecha;
         
-        return nuevo;
+        // Usando el servicio
+        this.restService.addLibro(libro);
+
+        // return libros;
     }
  
     // (3) /:id get obtener un libro devuelve un libro
