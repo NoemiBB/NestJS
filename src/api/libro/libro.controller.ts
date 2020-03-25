@@ -5,15 +5,30 @@ import { identity } from 'rxjs';
 @Controller('libro')
 export class LibroController {
     // (1) Get: listado de libros, devuelve un array de libro
+
     @Get()
     findAll() {
         const libro = new Libro();
+        const libros = [];
+        // Creamos varios libros
         libro.id = 1;
         libro.titulo = 'Libro 1';
         libro.autor = 'Autor 1';
         libro.fecha = new Date(); 
+        libros.push(libro);
 
-        return libro;
+        libro.id = 11;
+        libro.titulo = 'Libro 11';
+        libro.autor = 'Autor 11';
+        libro.fecha = new Date(); 
+        libros.push(libro);
+
+        libro.id = 12;
+        libro.titulo = 'Libro 12';
+        libro.autor = 'Autor 12';
+        libro.fecha = new Date(); 
+        libros.push(libro);
+        return libros;
     }
 
     // (2) Post: añadir un libro devuelve un libro
