@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Put, Delete, Param, Body} from '@nestjs/common';
-import { Libro } from '../../libro';
+import { Libro } from '../libro';
 import { identity } from 'rxjs';
 import { RestService } from '../rest/rest.service';
+import { get } from 'http';
 
 @Controller('libro')
 export class LibroController {
@@ -52,6 +53,11 @@ export class LibroController {
         // Usando el servicio
         this.restService.addLibro(libro);
         
+        // Mostrar el libro        
+        let libros: Libro[];
+        libros = this.findAll();
+
+        return libros;        
     }
  
     // (3) /:id get obtener un libro devuelve un libro

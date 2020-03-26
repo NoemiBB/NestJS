@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Libro } from '../../libro';
+import { Libro } from '../libro';
 
 @Injectable()
 export class RestService {
