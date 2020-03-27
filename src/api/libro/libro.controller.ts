@@ -6,7 +6,8 @@ import { get } from 'http';
 
 @Controller('libro')
 export class LibroController {
-    constructor( private restService: RestService){
+    constructor( private restService: RestService
+                 ){
 
     }
 
@@ -62,12 +63,16 @@ export class LibroController {
  
     // (3) /:id get obtener un libro devuelve un libro
     @Get('/:id')
-    getById(@Param() params): Libro {
-        const libro = new Libro();
-        libro.id = params.id;
-        libro.titulo = "Libro 3";
-        libro.autor = "Autor 3";
-        libro.fecha = new Date(); 
+    getById(@Param() params) {
+    
+        // Usando el servicio
+        let libro = new Libro();
+        libro = this.restService.getLibroById(params.id);
+
+        // libro.id = params.id;
+        // libro.titulo = "Libro 3";
+        // libro.autor = "Autor 3";
+        // libro.fecha = new Date(); 
 
         return libro;
     }
@@ -75,23 +80,40 @@ export class LibroController {
     // (4) /:id put modificar un libro devuelve un libro
     @Put('/:id')
     modifyById(@Param() params, @Body() libro: Libro): Libro {
-        const nuevo = new Libro();
-        nuevo.id = params.id;
+        // Usando el servicio
+        let nuevo = new Libro();    
+        nuevo = this.restService.getLibroById(params.id);
         nuevo.titulo = libro.titulo;
         nuevo.autor = libro.autor;
         nuevo.fecha = libro.fecha;
+
+        this.restService.addLibro(nuevo);
+
+        // const nuevo = new Libro();
+        // nuevo.id = params.id;
+        // nuevo.titulo = libro.titulo;
+        // nuevo.autor = libro.autor;
+        // nuevo.fecha = libro.fecha;
 
         return nuevo;
     }
     // (5) /:id delete borrar un libro devuelve un libro
     @Delete('/:id')
     deleteById(@Param() params): Libro {
-        const libro = new Libro();
-        libro.id = params.id;
-        libro.titulo = "Libro 5";
-        libro.autor = "Autor 5";
-        libro.fecha = new Date();   
+        // Usando el servicio
+        let nuevo = new Libro();    
+        nuevo = this.restService.getLibroById(params.id);
+        nuevo.id = params.id;
+        nuevo.titulo = "Libro 5";
+        nuevo.autor = "Autor 5";
+        nuevo.fecha = new Date();
+        
+        // const libro = new Libro();
+        // libro.id = params.id;
+        // libro.titulo = "Libro 5";
+        // libro.autor = "Autor 5";
+        // libro.fecha = new Date();   
 
-        return libro;
+        return nuevo;
     }
 }
