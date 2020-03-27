@@ -39,6 +39,7 @@ export class LibrosService {
         if(librosinid.fecha != null) {
             libroGuardado.fecha = librosinid.fecha;
         }
+        await this.modelo.updateOne({ _id : id }, libroGuardado);
         return await this.modelo.findById(id);
     }
     async delete(id: string): Promise<Libro> {
