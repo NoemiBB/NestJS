@@ -1,15 +1,23 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Libro } from '../libro';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+
 
 @Injectable()
 export class RestService {
-    libros: Libro[];
+    private libros: Libro[];
     private readonly logger = new Logger(RestService.name);
 
-    constructor() {
+    constructor(@InjectModel('Libro') private readonly modelo: Model<Libro>) {
         this.libros = [];
     }
 
+    // async findAll(): Promise<Libro[]> {
+    //     const promesa = this.modelo.find().exec();
+    //     // this.logger.log('findAll' + promesa)
+    //     return await promesa;
+    // }
     getLibros(): Libro[] {
         return this.libros;
     }
@@ -21,7 +29,11 @@ export class RestService {
     getLibroById(id: number): Libro {
         let libro: Libro;
         libro = this.libros.find(value => value.id == id);
+        this.logger.log(libro);
 
+        if (libro === undefined){
+            return new Libro();
+        }
         return libro;
     }
 
